@@ -258,6 +258,21 @@ service:
   type: None
 EOF
 
+# Create a PeerAuthentication to enforce mTLS
+echo
+echo -e "${blue}Creating a PeerAuthentication to enforce mTLS${nocolor}"
+kubectl apply -f- <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  mtls:
+    mode: STRICT
+EOF
+kubectl describe peerauthentication -n istio-system default
+
 # Prompt user to update DNS
 ingress=$(kubectl -n istio-gateways get svc -l istio=ingressgateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].*}')
 echo -e ${blue}
