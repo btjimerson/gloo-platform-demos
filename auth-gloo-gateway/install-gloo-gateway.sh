@@ -138,7 +138,7 @@ spec:
     kind: Service
 EOF
 echo
-echo -e "${blue}Created the HTTPRoute for the httpbin applicaiton${nocolor}"
+echo -e "${blue}Created the HTTPRoute for the httpbin application${nocolor}"
 kubectl describe httproute -n gloo-system httpbin
 
 # Let everything catch up
